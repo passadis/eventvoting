@@ -16,8 +16,8 @@ const UnlimitedVotingPoll = () => {
   const [voteCount, setVoteCount] = useState(0); // Track how many times user voted
   const [lastVoted, setLastVoted] = useState(null);
 
-  // API Configuration - Update this URL after deploying your Azure Functions
-  const API_BASE = process.env.REACT_APP_API_BASE_URL
+  // API Configuration - Use /api for Static Web Apps
+  const API_BASE = process.env.REACT_APP_API_BASE_URL || '/api';
   
   const totalVotes = Object.values(votes).reduce((sum, count) => sum + count, 0);
 
