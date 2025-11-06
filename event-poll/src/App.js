@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Calendar, Users, Trophy, Box, Rocket, CheckCircle, Wifi, Database, RefreshCw } from 'lucide-react';
 
 const UnlimitedVotingPoll = () => {
@@ -61,7 +61,7 @@ const events = [
   ];
 
   // Load votes from database
-  const loadVotes = async () => {
+  const loadVotes = useCallback(async () => {
     try {
       setConnectionStatus('connecting');
       
@@ -79,7 +79,7 @@ const events = [
     } finally {
       setIsLoading(false);
     }
-  };
+  }, [API_BASE]);
 
   // Submit vote to database (unlimited voting)
   const handleVote = async (eventId) => {
@@ -128,7 +128,7 @@ const events = [
     loadVotes();
     const interval = setInterval(loadVotes, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [loadVotes]);
 
   const getPercentage = (eventId) => {
     if (totalVotes === 0) return 0;
